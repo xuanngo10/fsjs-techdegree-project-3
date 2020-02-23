@@ -10,6 +10,8 @@ const selectTShirtTheme = document.querySelector(
 const designMenu = document.getElementById("design");
 const activityMenu = document.querySelector(".activities");
 const activityOptions = document.querySelectorAll(".activities input");
+const activityMenu2 = document.querySelector(".activities");
+const costHtml = document.querySelector(".cost");
 
 ////////////////////////////////////////////////////////////////
 // Job Role Section
@@ -62,34 +64,40 @@ designMenu.addEventListener("change", event => {
 // Keep track of total cost
 let totalCost = 0;
 
+// append total cost to html
+let totalHtml = "";
+
+activityMenu.insertAdjacentHTML("beforeend", "<h3 class='cost'></h3>");
+
 // listen for activity option clicked
 activityMenu.addEventListener("change", event => {
   const clicked = event.target;
   const clickedTime = clicked.getAttribute("data-day-and-time");
   const clickedCost = parseInt(clicked.getAttribute("data-cost"));
-  // add or subtract cost
+  // add or subtract cost & display it
   if (clicked.checked) {
     totalCost += clickedCost;
+    totalHtml = `Total: ${totalCost}`;
+    costHtml.textContent = totalHtml;
   } else {
     totalCost -= clickedCost;
+    totalHtml = `Total: ${totalCost}`;
+    costHtml.textContent = totalHtml;
   }
-
+  // disable conflicting time options
   for (let i = 0; i < activityOptions.length; i++) {
     const activityTime = activityOptions[i].getAttribute("data-day-and-time");
 
     if (clickedTime === activityTime && clicked !== activityOptions[i]) {
       if (clicked.checked) {
-        activityOptions[i].disabled = "true";
+        activityOptions[i].disabled = true;
       } else {
-        activityOptions[i].disabled = "false";
+        activityOptions[i].disabled = false;
       }
     }
   }
 });
 
-// append total cost to html
-const totalHtml = `
-  <h3>Total Cost: ${totalCost}</h3>
-`;
-
-activityMenu.innerHTML += totalHtml;
+////////////////////////////////////////////////////////////////
+// Payment Info Section
+////////////////////////////////////////////////////////////////
