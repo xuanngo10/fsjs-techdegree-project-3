@@ -12,6 +12,10 @@ const activityMenu = document.querySelector(".activities");
 const activityOptions = document.querySelectorAll(".activities input");
 const activityMenu2 = document.querySelector(".activities");
 const costHtml = document.querySelector(".cost");
+const paymentMenu = document.getElementById("payment");
+const selectPaymentOption = document.querySelector(
+  "option[value='select method']"
+);
 
 ////////////////////////////////////////////////////////////////
 // Job Role Section
@@ -101,3 +105,9 @@ activityMenu.addEventListener("change", event => {
 ////////////////////////////////////////////////////////////////
 // Payment Info Section
 ////////////////////////////////////////////////////////////////
+
+// hide select payment method in dropdown
+selectPaymentOption.hidden = "true";
+
+const paypal = document.getElementById("paypal");
+const bitcoin = document.getElementById("bitcoin");
