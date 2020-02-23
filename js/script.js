@@ -108,8 +108,32 @@ activityMenu.addEventListener("change", event => {
 // hide select payment method in dropdown
 selectPaymentOption.hidden = "true";
 
+// show only credit card form by default and hide the rest
+const creditCard = document.getElementById("credit-card");
 const paypal = document.getElementById("paypal");
 const bitcoin = document.getElementById("bitcoin");
-const paymentOptions = document.querySelectorAll("#payment option");
 
-// paymentMenu.addEventListener("change", event => {});
+paypal.style.display = "none";
+bitcoin.style.display = "none";
+
+// listen for payment option and display accordingly
+const paymentOptions = document.querySelectorAll("#payment option");
+paymentMenu.addEventListener("change", event => {
+  const clicked = event.target.value;
+
+  for (let i = 0; i < paymentOptions.length; i++) {
+    if (clicked === "credit card") {
+      creditCard.style.display = "block";
+      paypal.style.display = "none";
+      bitcoin.style.display = "none";
+    } else if (clicked === "paypal") {
+      creditCard.style.display = "none";
+      paypal.style.display = "block";
+      bitcoin.style.display = "none";
+    } else if (clicked === "bitcoin") {
+      creditCard.style.display = "none";
+      paypal.style.display = "none";
+      bitcoin.style.display = "block";
+    }
+  }
+});
