@@ -10,8 +10,6 @@ const selectTShirtTheme = document.querySelector(
 const designMenu = document.getElementById("design");
 const activityMenu = document.querySelector(".activities");
 const activityOptions = document.querySelectorAll(".activities input");
-const activityMenu2 = document.querySelector(".activities");
-const costHtml = document.querySelector(".cost");
 const paymentMenu = document.getElementById("payment");
 const selectPaymentOption = document.querySelector(
   "option[value='select method']"
@@ -78,6 +76,7 @@ activityMenu.addEventListener("change", event => {
   const clicked = event.target;
   const clickedTime = clicked.getAttribute("data-day-and-time");
   const clickedCost = parseInt(clicked.getAttribute("data-cost"));
+  const costHtml = document.querySelector(".cost");
   // add or subtract cost & display it
   if (clicked.checked) {
     totalCost += clickedCost;
@@ -111,3 +110,6 @@ selectPaymentOption.hidden = "true";
 
 const paypal = document.getElementById("paypal");
 const bitcoin = document.getElementById("bitcoin");
+const paymentOptions = document.querySelectorAll("#payment option");
+
+// paymentMenu.addEventListener("change", event => {});
