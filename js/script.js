@@ -137,3 +137,131 @@ paymentMenu.addEventListener("change", event => {
     }
   }
 });
+
+////////////////////////////////////////////////////////////////
+// Form Validation
+////////////////////////////////////////////////////////////////
+const name = document.getElementById("name");
+const email = document.getElementById("mail");
+const form = document.querySelector("form");
+
+// Validate name field
+const nameValidator = () => {
+  const nameValue = name.value;
+
+  if (nameValue.length > 0) {
+    name.style.border = "1px solid white";
+    return true;
+  } else {
+    name.style.border = "1px solid red";
+    return false;
+  }
+};
+
+// Validate email field
+const emailValidator = () => {
+  const emailValue = email.value;
+  const indexAt = emailValue.indexOf("@");
+  const indexPeriod = emailValue.lastIndexOf(".");
+
+  if (indexAt > 1 && indexPeriod > indexAt + 1) {
+    email.style.border = "1px solid white";
+    return true;
+  } else {
+    email.style.border = "1px solid red";
+    return false;
+  }
+};
+
+// Validate activity field
+const activityValidator = () => {
+  for (let i = 0; i <= activityOptions.length; i++) {
+    if (totalCost === 0) {
+      activityOptions[i].style.outline = "1px solid red";
+      return false;
+    } else if (totalCost > 0) {
+      activityOptions[i].style.outline = "none";
+      return true;
+    }
+  }
+};
+
+// Validate payment field
+const ccNumer = document.getElementById("cc-num");
+const zipCode = document.getElementById("zip");
+const cvv = document.getElementById("cvv");
+
+const ccNumberValidator = () => {
+  const ccNumberVal = ccNumer.value;
+
+  if (ccNumberVal.length >= 13 && ccNumberVal.length <= 16) {
+    ccNumer.style.border = "1px solid white";
+    return true;
+  } else {
+    ccNumer.style.border = "1px solid red";
+    return false;
+  }
+};
+
+const zipCodeValidator = () => {
+  const zipCodeVal = zipCode.value;
+
+  if (zipCodeVal.length === 5) {
+    zipCode.style.border = "1px solid white";
+    return true;
+  } else {
+    zipCode.style.border = "1px solid red";
+    return false;
+  }
+};
+
+const cvvValidator = () => {
+  const cvvVal = cvv.value;
+
+  if (cvvVal.toString().length === 3) {
+    cvv.style.border = "1px solid white";
+    console.log("yes");
+    return true;
+  } else {
+    cvv.style.border = "1px solid red";
+    console.log("no");
+    return false;
+  }
+};
+
+const paymentValidator = () => {
+  const cc = document.querySelector("option[value='credit card']");
+
+  if ((cc.selected = true)) {
+    ccNumberValidator();
+    zipCodeValidator();
+    cvvValidator();
+    return true;
+  }
+};
+
+// real time validation
+form.addEventListener("keyup", () => {
+  nameValidator();
+  emailValidator();
+  activityValidator();
+  paymentValidator();
+});
+
+form.addEventListener("mouseout", () => {
+  activityValidator();
+});
+
+// validation on submit
+const registerBtn = document.querySelector("button[type='submit']");
+
+form.addEventListener("submit", e => {
+  nameValidator();
+  emailValidator();
+  activityValidator();
+  paymentValidator();
+
+  if (!nameValidator()) {
+    e.preventDefault();
+  }
+});
