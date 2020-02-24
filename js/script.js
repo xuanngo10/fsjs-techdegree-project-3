@@ -186,15 +186,20 @@ const activityValidator = () => {
   }
 };
 
-// Validate payment field
+// Validate credit card payment field
 const ccNumer = document.getElementById("cc-num");
 const zipCode = document.getElementById("zip");
 const cvv = document.getElementById("cvv");
+const numRegex = /^\d+$/;
 
 const ccNumberValidator = () => {
   const ccNumberVal = ccNumer.value;
 
-  if (ccNumberVal.length >= 13 && ccNumberVal.length <= 16) {
+  if (
+    ccNumberVal.length >= 13 &&
+    ccNumberVal.length <= 16 &&
+    numRegex.test(ccNumberVal) === true
+  ) {
     ccNumer.style.border = "1px solid white";
     return true;
   } else {
@@ -206,7 +211,7 @@ const ccNumberValidator = () => {
 const zipCodeValidator = () => {
   const zipCodeVal = zipCode.value;
 
-  if (zipCodeVal.length === 5) {
+  if (zipCodeVal.length === 5 && numRegex.test(zipCodeVal) === true) {
     zipCode.style.border = "1px solid white";
     return true;
   } else {
@@ -218,13 +223,11 @@ const zipCodeValidator = () => {
 const cvvValidator = () => {
   const cvvVal = cvv.value;
 
-  if (cvvVal.toString().length === 3) {
+  if (cvvVal.length === 3 && numRegex.test(cvvVal) === true) {
     cvv.style.border = "1px solid white";
-    console.log("yes");
     return true;
   } else {
     cvv.style.border = "1px solid red";
-    console.log("no");
     return false;
   }
 };
