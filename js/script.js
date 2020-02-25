@@ -15,6 +15,7 @@ const paymentMenu = document.getElementById("payment");
 const selectPaymentOption = document.querySelector(
   "option[value='select method']"
 );
+const colorDiv = document.getElementById("colors-js-puns");
 
 ////////////////////////////////////////////////////////////////
 // Job Role Section
@@ -39,6 +40,16 @@ title.addEventListener("change", e => {
 // T-Shirt Info Section
 ////////////////////////////////////////////////////////////////
 
+const hideColor = () => {
+  if (selectATheme.selected === true) {
+    colorDiv.style.display = "none";
+  } else {
+    colorDiv.style.display = "block";
+  }
+};
+
+hideColor();
+
 // hide select theme option
 selectATheme.hidden = "true";
 
@@ -60,6 +71,7 @@ colorMenu[6].selected = "true";
 designMenu.addEventListener("change", event => {
   const target = event.target.value;
   colorMenu[6].selected = "false";
+  hideColor();
   // show colors associated with theme chosen
   for (let i = 0; i < colorMenu.length; i++) {
     const color = colorMenu[i].innerHTML;
