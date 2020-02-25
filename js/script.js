@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////
 // Variables
 ////////////////////////////////////////////////////////////////
+const title = document.getElementById("title");
 const otherTitle = document.getElementById("other-title");
 const selectATheme = document.querySelector("option[value='select a theme']");
 const colorMenu = document.getElementById("color");
@@ -21,6 +22,18 @@ const selectPaymentOption = document.querySelector(
 
 // Hide Other Job Role Field initially
 otherTitle.style.display = "none";
+const other = document.querySelector("option[value='other']");
+
+// if user chooses other, display input field
+title.addEventListener("change", e => {
+  const click = e.target.value;
+
+  if (other.selected === true) {
+    otherTitle.style.display = "block";
+  } else {
+    otherTitle.style.display = "none";
+  }
+});
 
 ////////////////////////////////////////////////////////////////
 // T-Shirt Info Section
@@ -173,6 +186,19 @@ const emailValidator = () => {
   }
 };
 
+// Validate other job field
+const otherJobValidator = () => {
+  const otherTitleVal = otherTitle.value;
+
+  if (otherTitle.style.display === "block" && otherTitleVal.length > 0) {
+    otherTitle.style.border = "1px solid white";
+    return true;
+  } else {
+    otherTitle.style.border = "1px solid red";
+    return false;
+  }
+};
+
 // Validate activity field
 const activityValidator = () => {
   for (let i = 0; i <= activityOptions.length; i++) {
@@ -192,6 +218,7 @@ const zipCode = document.getElementById("zip");
 const cvv = document.getElementById("cvv");
 const numRegex = /^\d+$/;
 
+// credit card number function
 const ccNumberValidator = () => {
   const ccNumberVal = ccNumer.value;
 
@@ -208,6 +235,7 @@ const ccNumberValidator = () => {
   }
 };
 
+// zip code number function
 const zipCodeValidator = () => {
   const zipCodeVal = zipCode.value;
 
@@ -220,6 +248,7 @@ const zipCodeValidator = () => {
   }
 };
 
+// cvv number function
 const cvvValidator = () => {
   const cvvVal = cvv.value;
 
@@ -232,6 +261,7 @@ const cvvValidator = () => {
   }
 };
 
+// if credit card is selected, run all validation functions for credit card
 const paymentValidator = () => {
   const cc = document.querySelector("option[value='credit card']");
 
@@ -249,6 +279,7 @@ form.addEventListener("keyup", () => {
   emailValidator();
   activityValidator();
   paymentValidator();
+  otherJobValidator();
 });
 
 form.addEventListener("mouseout", () => {
@@ -263,8 +294,17 @@ form.addEventListener("submit", e => {
   emailValidator();
   activityValidator();
   paymentValidator();
+  otherJobValidator();
 
   if (!nameValidator()) {
+    e.preventDefault();
+  } else if (!emailValidator()) {
+    e.preventDefault();
+  } else if (!activityValidator()) {
+    e.preventDefault();
+  } else if (!paymentValidator()) {
+    e.preventDefault();
+  } else if (!otherJobValidator()) {
     e.preventDefault();
   }
 });
