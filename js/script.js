@@ -249,24 +249,38 @@ cc.insertAdjacentHTML(
   "beforeend",
   "<p class='ccError'>Please enter a card number betweeen 13 to 16 digits.</p>"
 );
+cc.insertAdjacentHTML(
+  "beforeend",
+  "<p class='ccError2'>Please enter a card number</p>"
+);
 const ccError = document.querySelector(".ccError");
+const ccError2 = document.querySelector(".ccError2");
 ccError.style.display = "none";
 ccError.style.color = "red";
+ccError2.style.display = "none";
+ccError2.style.color = "red";
 
 // credit card number function
 const ccNumberValidator = () => {
   const ccNumberVal = ccNumer.value;
 
-  if (
+  if (ccNumberVal.length === 0) {
+    ccNumer.style.border = "1px solid red";
+    ccError2.style.display = "block";
+    ccError.style.display = "none";
+    return false;
+  } else if (
     ccNumberVal.length >= 13 &&
     ccNumberVal.length <= 16 &&
     numRegex.test(ccNumberVal) === true
   ) {
     ccNumer.style.border = "1px solid white";
+    ccError2.style.display = "none";
     ccError.style.display = "none";
     return true;
   } else {
     ccNumer.style.border = "1px solid red";
+    ccError2.style.display = "none";
     ccError.style.display = "block";
     return false;
   }
