@@ -40,6 +40,7 @@ title.addEventListener("change", e => {
 // T-Shirt Info Section
 ////////////////////////////////////////////////////////////////
 
+// hide color div until a theme is chosen
 const hideColor = () => {
   if (selectATheme.selected === true) {
     colorDiv.style.display = "none";
@@ -230,6 +231,16 @@ const zipCode = document.getElementById("zip");
 const cvv = document.getElementById("cvv");
 const numRegex = /^\d+$/;
 
+// display credit card error message
+const cc = document.querySelector(".cc");
+cc.insertAdjacentHTML(
+  "beforeend",
+  "<p class='ccError'>Please enter a card number betweeen 13 to 16 digits.</p>"
+);
+const ccError = document.querySelector(".ccError");
+ccError.style.display = "none";
+ccError.style.color = "red";
+
 // credit card number function
 const ccNumberValidator = () => {
   const ccNumberVal = ccNumer.value;
@@ -240,9 +251,11 @@ const ccNumberValidator = () => {
     numRegex.test(ccNumberVal) === true
   ) {
     ccNumer.style.border = "1px solid white";
+    ccError.style.display = "none";
     return true;
   } else {
     ccNumer.style.border = "1px solid red";
+    ccError.style.display = "block";
     return false;
   }
 };
@@ -261,6 +274,7 @@ const zipCodeValidator = () => {
 };
 
 // cvv number function
+
 const cvvValidator = () => {
   const cvvVal = cvv.value;
 
