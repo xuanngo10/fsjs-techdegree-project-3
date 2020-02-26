@@ -202,26 +202,38 @@ const emailValidator = () => {
 // Validate other job field
 const otherJobValidator = () => {
   const otherTitleVal = otherTitle.value;
+  const other = document.querySelector("option[value='other']");
 
-  if (otherTitle.style.display === "block" && otherTitleVal.length > 0) {
-    otherTitle.style.border = "1px solid white";
-    return true;
+  if (other.selected === true) {
+    if (otherTitleVal.length > 0) {
+      otherTitle.style.border = "1px solid white";
+      return true;
+    } else {
+      otherTitle.style.border = "1px solid red";
+      return false;
+    }
   } else {
-    otherTitle.style.border = "1px solid red";
-    return false;
+    return true;
   }
 };
 
+// display activity error message
+activityMenu.insertAdjacentHTML(
+  "beforeend",
+  "<p class='activityError'>Please choose at least one activity.</p>"
+);
+const activityError = document.querySelector(".activityError");
+activityError.style.display = "none";
+activityError.style.color = "red";
+
 // Validate activity field
 const activityValidator = () => {
-  for (let i = 0; i <= activityOptions.length; i++) {
-    if (totalCost === 0) {
-      activityOptions[i].style.outline = "1px solid red";
-      return false;
-    } else if (totalCost > 0) {
-      activityOptions[i].style.outline = "none";
-      return true;
-    }
+  if (totalCost === 0) {
+    activityError.style.display = "block";
+    return false;
+  } else if (totalCost > 0) {
+    activityError.style.display = "none";
+    return true;
   }
 };
 
