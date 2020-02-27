@@ -314,13 +314,35 @@ const cvvValidator = () => {
 };
 
 // if credit card is selected, run all validation functions for credit card
+creditCard.style.display = "block";
+
 const paymentValidator = () => {
   const cc = document.querySelector("option[value='credit card']");
+  cc.selected = true;
+  const paypal = document.getElementById("paypal");
+  const bitcoin = document.getElementById("bitcoin");
+  ccNumberValidator();
+  zipCodeValidator();
+  cvvValidator();
 
-  if ((cc.selected = true)) {
-    ccNumberValidator();
-    zipCodeValidator();
-    cvvValidator();
+  // has to do with cc option display style, create if statement on that
+  if (creditCard.style.display === "block") {
+    if (!ccNumberValidator()) {
+      console.log("1");
+      return false;
+    } else if (!zipCodeValidator()) {
+      console.log("2");
+      return false;
+    } else if (!cvvValidator()) {
+      console.log("3");
+      return false;
+    } else {
+      console.log("4");
+      return true;
+    }
+  } else if (paypal.style.display === "block") {
+    return true;
+  } else if (bitcoin.style.display === "block") {
     return true;
   }
 };
@@ -358,5 +380,8 @@ form.addEventListener("submit", e => {
     e.preventDefault();
   } else if (!otherJobValidator()) {
     e.preventDefault();
+  } else {
+    e.preventDefault();
+    window.location.reload();
   }
 });
