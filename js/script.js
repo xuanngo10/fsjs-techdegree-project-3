@@ -313,7 +313,7 @@ const cvvValidator = () => {
   }
 };
 
-// if credit card is selected, run all validation functions for credit card
+// if credit card is active, run all validation functions for credit card
 creditCard.style.display = "block";
 
 const paymentValidator = () => {
